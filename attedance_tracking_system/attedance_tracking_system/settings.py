@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MEDIA_URL="/media/"
+MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
+STATIC_URL="/static/"
+STATIC_ROOT=os.path.join(BASE_DIR,"static")
 # Application definition
 
 INSTALLED_APPS = [
@@ -129,6 +133,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 AUTH_USER_MODEL="attendance_tracking_app.CustomUser"
 AUTHENTICATION_BACKENDS=['attendance_tracking_app.EmailBackEnd.EmailBackEnd']
+
+EMAIL_BACKEND="django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH=os.path.join(BASE_DIR,"sent_mails")
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
