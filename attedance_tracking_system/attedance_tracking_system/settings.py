@@ -59,7 +59,7 @@ ROOT_URLCONF = 'attedance_tracking_system.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['attendance_tracking_app/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

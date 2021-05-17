@@ -1,0 +1,30 @@
+{% extends 'staff_template/base_template.html' %}
+{% block page_title %}
+Home
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+      
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger" style="padding: 10px;">
+              <a href="http://127.0.0.1:8000/view_all_courses/">
+                <div class="inner">
+                  <h3>{{ subject_count }}</h3>
+
+                  <p>My Courses</p>
+              </div>
+              
+              
+            </div>
+          </div>
+        </div>
+     
+         
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

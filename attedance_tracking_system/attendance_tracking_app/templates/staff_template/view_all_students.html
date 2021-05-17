@@ -1,0 +1,43 @@
+{% extends 'staff_template/base_template.html' %}
+{% block page_title %}
+Student Attendance Percentage
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+   <section class="content">
+      <div class="container-fluid">
+           <div class="row">
+          <div class="col-12">
+            <div class="card">
+             
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Attendance Percentage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for student in student_list %}
+                    <tr>
+                      <td>{{ student.1 }}</td>
+                      <td>{{ student.2 }}</td>
+                      <td>{{ student.3 }}</td>
+                     
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

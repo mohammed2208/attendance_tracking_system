@@ -1,0 +1,24 @@
+{% extends 'student_template/base_template.html' %}
+{% block page_title %}
+Mark Attendance Data
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+                    <div class="row">
+              <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                  <h3 class="card-title">Hello {{student.admin.first_name}}, you have already marked today's attendance for {{subjects.subject_name}}</h3>
+               
+             </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+          </div>
+          </div>
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

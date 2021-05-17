@@ -115,13 +115,13 @@ def view_all_subjects(request):
 
 @csrf_exempt
 def view_all_students(request):
-    print(request.POST.get("course_id"))
+    #print(request.POST.get("course_id"))
     students = Students.objects.filter(course_id=Courses.objects.get(id=request.POST.get("course_id")))
     student_list = [] 
     for i in students :
         total_lectures = CourseCount.objects.get(subject_id=Subjects.objects.get(id=request.POST.get("subjects")))
         total_lectures_attended = Attendance.objects.filter(student_id=Students.objects.get(id=i.id)).filter(status=1)
-        print(total_lectures.count_lectures, len(total_lectures_attended))
+        #print(total_lectures.count_lectures, len(total_lectures_attended))
         student = CustomUser.objects.get(id = i.admin_id)
         student_list.append([i.id, student.first_name, student.last_name,len(total_lectures_attended) / total_lectures.count_lectures * 100])
         
@@ -129,12 +129,12 @@ def view_all_students(request):
 
 def staff_send_notification_student(request):
     students=Students.objects.all()
-    print(students)
+    #print(students)
     return render(request,"staff_template/student_notification.html",{"students":students})
 @csrf_exempt
 def send_student_notification(request):
     id=request.POST.get("student_id")
-    print(id)
+    #print(id)
     message=request.POST.get("message")
     student=Students.objects.get(admin_id=id)
     # token=student.fcm_token
@@ -167,7 +167,7 @@ def create_attendance_list(request):
             currentcourse.save()
             students = Students.objects.filter(course_id=courseid)
             for i in students:
-                print(i)
+                #print(i)
                 attendance = Attendance(student_id=Students.objects.get(id=i.id), subject_id=Subjects.objects.get(id=request.POST.get("subject")))
                 attendance.save()
             messages.success(request, "Successfully Added Attendance Sheet")
