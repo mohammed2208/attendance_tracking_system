@@ -19,9 +19,9 @@ def student_home(request):
     course=Courses.objects.get(id=student_obj.course_id.id)
     subjects=Subjects.objects.filter(course_id=course).count()
     subjects_data=Subjects.objects.filter(course_id=course)
-    
-    
-    return render(request,"student_template/student_home_template.html",{"total_attendance":attendance_total,"attendance_absent":attendance_absent,"attendance_present":attendance_present,"subjects":subjects})
+    user=CustomUser.objects.get(id=request.user.id)
+    student=Students.objects.get(admin=user)
+    return render(request,"student_template/student_home_template.html",{"total_attendance":attendance_total,"attendance_absent":attendance_absent,"attendance_present":attendance_present,"subjects":subjects, "user":user,"student":student})
 
 
 
@@ -35,7 +35,11 @@ def student_view_attendance_post(request):
     subject_id=request.POST.get("subject")
     student=Students.objects.get(admin=request.user.id)
     attendance = Attendance.objects.filter(student_id=student.id, subject_id=subject_id)
-    return render(request,"student_template/student_attendance_data.html", {"attendance_reports":attendance})
+    subject = Subjects.objects.get(id = subject_id)
+    total_lectures = CourseCount.objects.get(subject_id=Subjects.objects.get(id=subject_id))
+    total_lectures_attended = Attendance.objects.filter(student_id=student.id).filter(status=1)
+    percentange = len(total_lectures_attended) / total_lectures.count_lectures * 100
+    return render(request,"student_template/student_attendance_data.html", {"attendance_reports":attendance, "percentage": percentange, "subject": subject})
 
 def student_mark_attendance(request):
     student=Students.objects.get(admin=request.user.id)
@@ -58,48 +62,6 @@ def student_mark_attendance_check_course(request):
         else:
             return render(request, "student_template/student_attendance_already_marked.html", {"subjects" : subject,  "student": student})
     return render(request, "student_template/student_no_lecture.html", {"subjects" : subject })
-
-
-def student_profile(request):
-    user=CustomUser.objects.get(id=request.user.id)
-    student=Students.objects.get(admin=user)
-    return render(request,"student_template/student_profile.html",{"user":user,"student":student})
-
-def student_profile_save(request):
-    if request.method!="POST":
-        return HttpResponseRedirect(reverse("student_profile"))
-    else:
-        first_name=request.POST.get("first_name")
-        last_name=request.POST.get("last_name")
-        password=request.POST.get("password")
-        address=request.POST.get("address")
-        try:
-            customuser=CustomUser.objects.get(id=request.user.id)
-            customuser.first_name=first_name
-            customuser.last_name=last_name
-            if password!=None and password!="":
-                customuser.set_password(password)
-            customuser.save()
-
-            student=Students.objects.get(admin=customuser)
-            student.address=address
-            student.save()
-            messages.success(request, "Successfully Updated Profile")
-            return HttpResponseRedirect(reverse("student_profile"))
-        except:
-            messages.error(request, "Failed to Update Profile")
-            return HttpResponseRedirect(reverse("student_profile"))
-
-@csrf_exempt
-def student_fcmtoken_save(request):
-    token=request.POST.get("token")
-    try:
-        student=Students.objects.get(admin=request.user.id)
-        student.fcm_token=token
-        student.save()
-        return HttpResponse("True")
-    except:
-        return HttpResponse("False")
 
 def student_all_notification(request):
     student=Students.objects.get(admin=request.user.id)

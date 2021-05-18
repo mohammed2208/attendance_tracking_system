@@ -6,24 +6,71 @@ Home
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-          <div class="row">
-      
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger" style="padding: 10px;">
-              <a href="http://127.0.0.1:8000/view_all_courses/">
-                <div class="inner">
-                  <h3>{{ subject_count }}</h3>
-
-                  <p>My Courses</p>
+        <div class="row">
+        <div class="col-xl-12 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">My account</h3>
+                </div>
               </div>
-              
-              
+            </div>
+            <div class="card-body">
+              <form>
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-username">Username</label>
+                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="{{ user.username }}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Email address</label>
+                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="{{ user.email }}" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-first-name">First name</label>
+                        <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="{{ user.first_name }}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-last-name">Last name</label>
+                        <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value="{{ user.last_name }}" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-address">Address</label>
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="{{staff.address}}" type="text" readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-     
-         
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+        <!-- small box -->
+        <div class="small-box bg-danger" style="padding: 10px;">
+          <a href="http://127.0.0.1:8000/view_all_courses/">
+            <div class="inner">
+              <h3>{{ subject_count }}</h3>
+
+              <p>My Courses</p>
+          </div>
+        </div>
+      </div>
+    </div>
       </div>
     </section>
     <!-- /.content -->
